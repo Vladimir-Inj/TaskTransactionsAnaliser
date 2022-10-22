@@ -19,7 +19,7 @@ class CurrencyRatesSourceFactory
                 throw new CurrencyRatesException('Setting "exchangerates" is missing in the configuration file');
 
             default:
-                throw new CurrencyRatesException("{$config->get('exchangerates')} is unknown currency rates source");
+                throw new CurrencyRatesException("{$config->get('currency_rates_source')} is unknown currency rates source");
         }
     }
 }
