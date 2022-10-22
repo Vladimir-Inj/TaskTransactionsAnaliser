@@ -1,6 +1,7 @@
 <?php
+declare(strict_types = 1);
 
-namespace App;
+namespace Application\Helpers;
 
 class Helper
 {
@@ -39,6 +40,9 @@ class Helper
         return in_array($country, self::EU_LIST);
     }
 
+    /**
+     * Task says that commission must be not rounded, but ceiled to cents
+     */
     public static function ceilToCents($price)
     {
         return ceil($price * 100) / 100;

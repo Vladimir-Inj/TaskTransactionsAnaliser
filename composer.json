@@ -4,10 +4,11 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "Application\\": "src/"
     }
   },
   "require": {
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-fileinfo": "*"
   }
 }

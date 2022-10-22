@@ -2,9 +2,14 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\TransactionsAnaliser;
+use Application\Controller;
 
-$analiser = new TransactionsAnaliser();
-$analiser->loadTransactions($argv[1]);
-$analiser->printTransactions();
+$controller = new Controller();
+$controller->init();
+$controller->run();
+
+
+//$analiser = new TransactionsAnaliser();
+//$analiser->loadTransactions($argv[1]);
+//$analiser->printTransactions();
 

@@ -6,16 +6,13 @@ services:
       - COMPOSER_CACHE_DIR=/app/.cache/composer
     volumes:
       - .:/app
-    restart: never
   php:
-    image: php:7.4-cli
-    restart: never
+    image: php:8.0-cli
     volumes:
       - .:/app
     working_dir: /app
   phpunit:
-    image: php:7.4-cli
-    restart: never
+    image: php:8.0-cli
     volumes:
       - .:/app
     working_dir: /app
