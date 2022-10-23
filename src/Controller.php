@@ -19,7 +19,7 @@ class Controller
         $this->request = RequestFactory::getRequest();
 
         $configFilename = $this->request->getProperty('config');
-        $this->config = new Config($configFilename ?? 'config.ini');
+        $this->config = new Config($configFilename ?? 'public/config.ini');
     }
 
     public function run(): void
