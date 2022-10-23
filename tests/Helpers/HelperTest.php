@@ -1,11 +1,11 @@
 <?php
 
+use Application\Helpers\Helper;
 use PHPUnit\Framework\TestCase;
-use App\Helper;
 
 class HelperTest extends TestCase
 {
-    public function IsEUDataProvider() : array
+    public function IsEUDataProvider(): array
     {
         return [
             ['AA', false],
@@ -19,15 +19,15 @@ class HelperTest extends TestCase
 
     /**
      * @dataProvider IsEUDataProvider
-     * @covers \App\Helper
+     * @covers Helper::isEU
      */
-    public function testIsEU($country, $result)
+    public function testIsEU($country, $result): void
     {
         $this->assertEquals($result, Helper::isEU($country));
     }
 
 
-    public function CeilToCentsDataProvider() : array
+    public function CeilToCentsDataProvider(): array
     {
         return [
             [10.33548, 10.34],
@@ -41,9 +41,9 @@ class HelperTest extends TestCase
 
     /**
      * @dataProvider CeilToCentsDataProvider
-     * @covers \App\Helper
+     * @covers Helper::ceilToCents
      */
-    public function testCeilToCents($number, $result)
+    public function testCeilToCents(float $number, float $result): void
     {
         $this->assertEquals($result, Helper::ceilToCents($number));
     }
