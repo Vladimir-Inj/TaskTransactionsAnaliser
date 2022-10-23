@@ -14,7 +14,7 @@ use Application\Reader\ReaderInterface;
 class TransactionsAnalyser
 {
     private ReaderInterface $reader;
-    private CardsDetailsSource $CardsDetailsSource;
+    private CardsDetailsSource $cardsDetailsSource;
     private CurrencyRatesSourceInterface $currencyRates;
 
     private float $eu_comission_rate;
@@ -23,11 +23,11 @@ class TransactionsAnalyser
     /* @var Transaction[] */
     private array $transactions = [];
 
-    public function __construct(Config $config, ReaderInterface $reader, CardsDetailsSource $CardsDetailsSource, CurrencyRatesSourceInterface $currencyRates)
+    public function __construct(Config $config, ReaderInterface $reader, CardsDetailsSource $cardsDetailsSource, CurrencyRatesSourceInterface $currencyRates)
     {
         $this->config = $config;
         $this->reader = $reader;
-        $this->CardsDetailsSource = $CardsDetailsSource;
+        $this->cardsDetailsSource = $cardsDetailsSource;
         $this->currencyRates = $currencyRates;
 
         $comissionRates = $this->config->get('commission_rates');
@@ -54,9 +54,14 @@ class TransactionsAnalyser
         }
     }
 
+    public function getTransactions(): array
+    {
+        return $this->transactions;
+    }
+
     private function getCommissionRate(string $bin): float
     {
-        $cardDetails = $this->CardsDetailsSource->get($bin);
+        $cardDetails = $this->cardsDetailsSource->get($bin);
         return Helper::isEU($cardDetails['country']['alpha2']) ? $this->eu_comission_rate : $this->not_eu_comission_rate;
     }
 
