@@ -10,7 +10,7 @@ class JsonTextReader implements ReaderInterface
 {
     private $fileHandler;
 
-    public function __construct($filename)
+    public function __construct(string $filename)
     {
         $this->fileHandler = fopen($filename, 'r');
     }
@@ -20,6 +20,8 @@ class JsonTextReader implements ReaderInterface
         while(($line = fgets($this->fileHandler)) !== false) {
             yield json_decode($line, true);
         }
+
+        return null;
     }
 
     public function __destruct()
