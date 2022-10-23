@@ -6,41 +6,36 @@ namespace Application;
 use Application\CardsDetailsSource\CardsDetailsSource;
 use Application\CurrencyRatesSource\CurrencyRatesSourceFactory;
 use Application\Reader\ReaderFactory;
+use Application\Request\AbstractRequest;
 use Application\Request\RequestFactory;
 
 class Controller
 {
-    private Registry $registry;
-
-    public function __construct()
-    {
-        $this->registry = Registry::instance();
-    }
+    private ?AbstractRequest $request = null;
+    private ?Config $config = null;
 
     public function init(): void
     {
-        $request = RequestFactory::getRequest();
-        $this->registry->setRequest($request);
+        $this->request = RequestFactory::getRequest();
 
-        $configFilename = $this->registry->getRequest()->getProperty('config');
-        $config = new Config($configFilename ?? 'config.ini');
-        $this->registry->setConfig($config);
+        $configFilename = $this->request->getProperty('config');
+        $this->config = new Config($configFilename ?? 'config.ini');
     }
 
     public function run(): void
     {
         /* get reader */
-        $filename = $this->registry->getRequest()->getProperty('file');
+        $filename = $this->request->getProperty('file');
         $reader = ReaderFactory::getReader($filename);
 
         /* get currencyRates */
-        $currencyRatesSource = CurrencyRatesSourceFactory::getCurrencyRatesSource($this->registry->getConfig());
+        $currencyRatesSource = CurrencyRatesSourceFactory::getCurrencyRatesSource($this->config);
 
         /* get cards details source */
-        $cardsDetailsSource = new CardsDetailsSource($this->registry->getConfig()->get('cards_details_source')['url']);
+        $cardsDetailsSource = new CardsDetailsSource($this->config->get('cards_details_source')['url']);
 
         /* create and run analyser */
-        $transactionsAnalyser = new TransactionsAnalyser($this->registry->getConfig(), $reader, $cardsDetailsSource, $currencyRatesSource);
+        $transactionsAnalyser = new TransactionsAnalyser($this->config, $reader, $cardsDetailsSource, $currencyRatesSource);
         $transactionsAnalyser->loadTransactions();
         $transactionsAnalyser->printTransactions();
     }
