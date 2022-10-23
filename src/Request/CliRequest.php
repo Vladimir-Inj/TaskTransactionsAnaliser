@@ -9,14 +9,10 @@ class CliRequest extends AbstractRequest
     {
         $args = $_SERVER['argv'];
         foreach ($args as $arg) {
-            if (preg_match("/^path:(\S+)/", $arg, $matches)) {
-                $this->path = $matches[1];
-            } elseif (strpos($arg, '=')) {
+            if (strpos($arg, '=')) {
                 list($key, $val) = explode("=", $arg);
                 $this->setProperty($key, $val);
             }
         }
-
-        $this->path = (empty($this->path)) ? "/" : $this->path;
     }
 }
