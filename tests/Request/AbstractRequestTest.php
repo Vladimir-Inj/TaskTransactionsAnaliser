@@ -31,7 +31,7 @@ class AbstractRequestTest extends TestCase
      * @covers AbstractRequest::getProperty
      * @covers AbstractRequest::setProperty
      */
-    public function testSetProperty($property, $value): void
+    public function testSetProperty(string $property, $value): void
     {
         $this->abstractRequest->setProperty($property, $value);
         $this->assertEquals($value, $this->abstractRequest->getProperty($property));

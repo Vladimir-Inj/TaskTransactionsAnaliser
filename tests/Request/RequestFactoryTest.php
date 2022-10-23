@@ -10,7 +10,7 @@ class RequestFactoryTest extends TestCase
     /**
      * @covers RequestFactory::getRequest
      */
-    public function testGetHttpRequest()
+    public function testGetHttpRequest(): void
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_SERVER['PATH_INFO'] = '/';
